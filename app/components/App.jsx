@@ -1,28 +1,8 @@
 import React from 'react';
-import Notes from './notes';
+import Notes from './Notes';
 import uuid from 'uuid';
 
-/*const notes = [
-    {
-        id: uuid.v4(),
-        task: 'Learn React'
-    }, {
-        id: uuid.v4(),
-        task: 'Do laundry'
-    }
-];
 
-export default () => (
-    <div>
-        <button onClick={() => console.log('add note')}>+</button>
-        <Notes notes={notes} />
-    </div>
-
-);*/
-
-function fn () {
-    console.log('xxx');
-}
 
 export default class App extends React.Component {
   constructor(props) {
@@ -68,7 +48,7 @@ export default class App extends React.Component {
   removeLastNote = () => {
 
       const x = this.state.notes.pop();
-      console.log(`deleted item = ${x}`);
+      console.log(`deleted item = ${x.task}`);
 
       this.setState({
           notes: this.state.notes
