@@ -6,7 +6,7 @@ export default({
     onEdit,
     ...props
 }) => {
-    console.log(`editing=${editing} \nvalue=${value}\nedting=${editing}\nprops=${JSON.stringify(props)}`);
+    // console.log(`editing=${editing} \nvalue=${value}\nedting=${editing}\nprops=${JSON.stringify(props)}`);
     // console.log(`edting=${editing}`);
     // console.log(`props=${JSON.stringify(props)}`);
     if (editing) {
@@ -35,7 +35,7 @@ class Edit extends React.Component {
             value,
             ...props
         } = this.props;
-        console.log(`value=${value}\nprops=${JSON.stringify(props)}\nthis.props=${JSON.stringify(this.props)}`);
+        // console.log(`value=${value}\nprops=${JSON.stringify(props)}\nthis.props=${JSON.stringify(this.props)}`);
 
         return <input type="text" autoFocus={true} defaultValue={value} onBlur={this.finishEdit} onKeyPress={this.checkEnter} {...props}/>;
 
