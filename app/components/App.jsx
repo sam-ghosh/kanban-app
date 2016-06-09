@@ -23,8 +23,8 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <button onClick={this.addNote}>+</button>
-                <button onClick={this.removeLastNote}>-</button>
+                <button className="add-note" onClick={this.addNote}>+</button>
+                <button className="delete-note" onClick={this.removeLastNote}>-</button>
                 <Notes notes={notes} onDelete={this.deleteNote} onNoteClick={this.activateNoteEdit} onEdit={this.editNote}/>
             </div>
         );
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     }
 
     activateNoteEdit = (id) => {
-        console.log(`in activateNoteEdit of ${id}`);
+        // console.log(`in activateNoteEdit of ${id}`);
         this.setState({
             notes: this.state.notes.map(note => {
                 if (note.id === id) {

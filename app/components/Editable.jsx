@@ -1,43 +1,37 @@
 import React from 'react';
+import classnames from 'classnames'
 
 export default({
+    className,
     editing,
     value,
     onEdit,
+
     ...props
 }) => {
     // console.log(`editing=${editing} \nvalue=${value}\nedting=${editing}\nprops=${JSON.stringify(props)}`);
     // console.log(`edting=${editing}`);
-    // console.log(`props=${JSON.stringify(props)}`);
+    console.log(`Editable props=${JSON.stringify(props)}`);
     if (editing) {
-        return <Edit value={value} onEdit={onEdit} {...props}/>
+        return <Edit className={className} value={value} onEdit={onEdit} {...props}/>
     } else {
-        return <span {...props}>value: {value}</span>
+        return <span className={classnames('value', className)} {...props}>value: {value}</span>
     }
 
 }
-
-/*const Edit = ({
-    onEdit = () => {},
-    value,
-    ...props
-}) => (
-    <span onClick={onEdit} {...props}>
-        <span>edit: {value}</span>
-    </span>
-);
-*/
 
 class Edit extends React.Component {
     render() {
 
         const {
+            className,
             value,
             ...props
         } = this.props;
         // console.log(`value=${value}\nprops=${JSON.stringify(props)}\nthis.props=${JSON.stringify(this.props)}`);
-
-        return <input type="text" autoFocus={true} defaultValue={value} onBlur={this.finishEdit} onKeyPress={this.checkEnter} {...props}/>;
+        console.log(`Edit render props = ${JSON.stringify(props)}`);
+        console.log(`this.props=${JSON.stringify(this.props)}`);
+        return <input className={classnames('edit', className)} type="text" autoFocus={true} defaultValue={value} onBlur={this.finishEdit} onKeyPress={this.checkEnter} {...props}/>;
 
     }
 
@@ -49,8 +43,10 @@ class Edit extends React.Component {
 
     finishEdit = (e) => {
         const value = e.target.value;
+        // debugger;
 
         if (this.props.onEdit) {
+            console.log('xxx');
             this.props.onEdit(value);
         }
     }
