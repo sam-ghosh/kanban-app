@@ -1,7 +1,5 @@
 import React from 'react';
 import classnames from 'classnames'
-import Edit from './Edit'
-
 
 export default({
     className,
@@ -20,4 +18,26 @@ export default({
         return <span className={classnames('value', className)} {...props}>value: {value}</span>
     }
 
+}
+
+const Edit = ({
+    className,
+    value,
+    onEdit = () => {},
+    ...props
+}) => {
+    console.log(`Edit props = ${JSON.stringify(props)}`);
+    // console.log(`this.props=${JSON.stringify(this.props)}`);
+
+    const checkEnter = (e) => (e.key === 'Enter' && finishEdit(e));
+
+    const finishEdit = (e) => (onEdit(e.target.value));
+
+    return <input
+        className={classnames('edit', className)}
+        type="text" autoFocus={true}
+        defaultValue={value}
+        onBlur={finishEdit}
+        onKeyPress={checkEnter}
+        {...props}/>;
 }
