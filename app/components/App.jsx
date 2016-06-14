@@ -2,6 +2,7 @@ import React from 'react';
 import Notes from './Notes';
 import uuid from 'uuid';
 import connect from '../libs/connect';
+import NoteActions from '../actions/NoteActions'
 
 class App extends React.Component {
 
@@ -16,17 +17,14 @@ class App extends React.Component {
                 <Notes notes={notes} onDelete={this.deleteNote} onNoteClick={this.activateNoteEdit} onEdit={this.editNote}/>
             </div>
         );
-    }
+    };
 
     addNote = () => {
-        this.setState({
-            notes: this.state.notes.concat([
-                {
-                    id: uuid.v4(),
-                    task: 'New Task'
-                }
-            ])
+        this.props.NoteActions.create({
+            id: uuid.v4(),
+            task: 'New Task'
         });
+
         console.log('task added');
     }
 
@@ -37,45 +35,28 @@ class App extends React.Component {
 
         this.setState({notes: this.state.notes});
         console.log('task removed');
-    }
+    };
 
     deleteNote = (id, e) => {
         e.stopPropagation();
-        this.setState({
-            notes: this.state.notes.filter(note => note.id !== id)
-        });
+        this.props.NoteActions.delete(id);
+        
         console.log(`Note with id=${id} deleted`);
-    }
+    };
 
     activateNoteEdit = (id) => {
         // console.log(`in activateNoteEdit of ${id}`);
-        this.setState({
-            notes: this.state.notes.map(note => {
-                if (note.id === id) {
-                    note.editing = true;
-                }
-                return note;
-            })
-        });
-    }
+        this.props.NoteActions.update({id, editing: true});
+        
+    };
 
     editNote = (id, task) => {
         console.log(`in editNote of ${id}`);
-        this.setState({
-            notes: this.state.notes.map(n => {
-                if (n.id === id) {
-                    n.editing = false;
-                    n.task = task
-                }
-                return n;
-
-            })
-        });
+        this.props.NoteActions.update({id, editing: false, task});
     }
 
 }
 
 const fn = ({notes}) => (Object.assign({notes}, {test: 'test'}));
 
-export default connect(fn
-)(App)
+export default connect(fn, {NoteActions})(App)
