@@ -62,7 +62,7 @@ function connect(state = () => {
 
 function composeStores(stores){
     let ret = {};
-    
+    // debugger;
     Object.keys(stores).forEach(k=>{
         const store = stores[k];
 
